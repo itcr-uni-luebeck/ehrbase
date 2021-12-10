@@ -10,16 +10,20 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(properties = {
+        "security.authType=basic"
+})
 @AutoConfigureMockMvc
-class CorsNoAuthTest {
+class CorsBasicAuthIT {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     void testCors() throws Exception {
-        mockMvc.perform(options("/rest/openehr/v1/definition/template/adl1.4"))
+        mockMvc.perform(options("/rest/openehr/v1/definition/template/adl1.4")
+                        .header("Access-Control-Request-Method", "GET")
+                        .header("Origin", "https://client.ehrbase.org"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

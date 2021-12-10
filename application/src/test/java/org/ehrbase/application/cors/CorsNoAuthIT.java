@@ -10,11 +10,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(properties = {
-        "security.authType=basic"
-})
+@SpringBootTest
 @AutoConfigureMockMvc
-class CorsBasicAuthTest {
+class CorsNoAuthIT {
 
     @Autowired
     private MockMvc mockMvc;
